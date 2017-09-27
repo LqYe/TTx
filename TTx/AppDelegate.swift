@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import BDBOAuth1Manager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -42,6 +43,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let requestToken = BDBOAuth1Credential(queryString: url.query!)
+        //create a API client
+        let twitterClient = BDBOAuth1SessionManager(baseURL: AppConstants.APIConstants.accessBaseUrl, consumerKey: AppConstants.APIConstants.consumerKey, consumerSecret: AppConstants.APIConstants.consumerSecret)
+        
+        
+        //request access token
+        twitterClient?.fetchAccessToken(withPath: AppConstants.APIConstants.accessTokenPath, method: "POST", requestToken: requestToken, success: { (accessToken : BDBOAuth1Credential!) -> Void in
+            
+            print (accessToken.token!)
+            
+            twitterClient?.get("/1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+                
+                print("account: \(response ?? "response")")
+                
+            }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+                
+            })
+            
+        }, failure: { (error: Error!) -> Void in
+            print("Error: \(error.localizedDescription)")
+        })
+        
+        return true
     }
 
     // MARK: - Core Data stack
