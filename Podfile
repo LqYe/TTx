@@ -8,5 +8,5 @@ target 'TTx' do
   # Pods for TTx
   pod 'AFNetworking'
   pod 'BDBOAuth1Manager'
-
+  pod 'NSDateMinimalTimeAgo'
 end
