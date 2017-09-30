@@ -108,10 +108,16 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let dvc = segue.destination as! TweetDetailsViewController
-        let indexPath = tweetsTableView.indexPath(for: sender as! UITableViewCell)!
-        let tweetCell = tweetsTableView.cellForRow(at: indexPath) as! TweetCell
-        dvc.tweet = tweetCell.tweet
+        
+        if segue.identifier == "showTweetDetails" {
+        
+            let dvc = segue.destination as! TweetDetailsViewController
+            let indexPath = tweetsTableView.indexPath(for: sender as! UITableViewCell)!
+            let tweetCell = tweetsTableView.cellForRow(at: indexPath) as! TweetCell
+            dvc.tweet = tweetCell.tweet
+            
+        }
+        
     }
  
     

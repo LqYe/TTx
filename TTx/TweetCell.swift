@@ -17,6 +17,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     
+    @IBOutlet weak var tweetDetailGroupViewYconstraint: NSLayoutConstraint!
     var tweet: Tweet! {
         didSet {
             
@@ -31,6 +32,7 @@ class TweetCell: UITableViewCell {
             
             if !tweet.retweeted! {
                 retweetedLabel.isHidden = true
+                tweetDetailGroupViewYconstraint.constant = 8
             }
 
         }

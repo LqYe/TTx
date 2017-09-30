@@ -9,4 +9,5 @@ target 'TTx' do
   pod 'AFNetworking'
   pod 'BDBOAuth1Manager'
   pod 'NSDateMinimalTimeAgo'
+  pod 'UITextView+Placeholder'
 end

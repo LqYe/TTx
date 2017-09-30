@@ -15,6 +15,7 @@
 		985C72981F7B786400E3759E /* TTx.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 985C72961F7B786400E3759E /* TTx.xcdatamodeld */; };
 		985C729A1F7B786400E3759E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 985C72991F7B786400E3759E /* Assets.xcassets */; };
 		985C729D1F7B786400E3759E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 985C729B1F7B786400E3759E /* LaunchScreen.storyboard */; };
+		98B626C31F803DB600D0D988 /* TweetComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B626C21F803DB600D0D988 /* TweetComposeViewController.swift */; };
 		98D769FC1F7F9A2E0099880E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D769FB1F7F9A2E0099880E /* Utils.swift */; };
 		98D769FE1F7FAC950099880E /* TweetDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D769FD1F7FAC950099880E /* TweetDetailsViewController.swift */; };
 		98D76A001F7FB3050099880E /* TweetDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D769FF1F7FB3050099880E /* TweetDetailsCell.swift */; };
@@ -37,6 +38,7 @@
 		985C72991F7B786400E3759E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		985C729C1F7B786400E3759E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		985C729E1F7B786400E3759E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98B626C21F803DB600D0D988 /* TweetComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetComposeViewController.swift; sourceTree = "<group>"; };
 		98D769FB1F7F9A2E0099880E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		98D769FD1F7FAC950099880E /* TweetDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDetailsViewController.swift; sourceTree = "<group>"; };
 		98D769FF1F7FB3050099880E /* TweetDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDetailsCell.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				985C72911F7B786400E3759E /* LoginViewController.swift */,
 				98DCA57F1F7F2A4C0076FE44 /* HomeTimelineViewController.swift */,
 				98D769FD1F7FAC950099880E /* TweetDetailsViewController.swift */,
+				98B626C21F803DB600D0D988 /* TweetComposeViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -239,12 +242,14 @@
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
 				"${BUILT_PRODUCTS_DIR}/NSDateMinimalTimeAgo/NSDateMinimalTimeAgo.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSDateMinimalTimeAgo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -298,6 +303,7 @@
 				98DCA5821F7F2C090076FE44 /* TweetCell.swift in Sources */,
 				984800061F7E390F00C0A0A3 /* Tweet.swift in Sources */,
 				98D769FC1F7F9A2E0099880E /* Utils.swift in Sources */,
+				98B626C31F803DB600D0D988 /* TweetComposeViewController.swift in Sources */,
 				98DCA5801F7F2A4C0076FE44 /* HomeTimelineViewController.swift in Sources */,
 				98D76A001F7FB3050099880E /* TweetDetailsCell.swift in Sources */,
 				9848000C1F7E468100C0A0A3 /* TwitterClient.swift in Sources */,

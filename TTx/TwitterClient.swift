@@ -122,6 +122,20 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
+    func postTweet(text: String!, success: (() -> Void)!, failure: ((Error?) -> Void)!) {
+        
+        let params = ["status": text]
+        post("/1.1/statuses/update.json", parameters: params, progress: nil, success: {  (task: URLSessionDataTask,
+            response: Any?) -> Void in
+            
+            success()
+            
+        }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        })
+        
+    }
+    
     
 
 }
