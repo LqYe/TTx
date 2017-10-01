@@ -12,6 +12,18 @@ import UITextView_Placeholder
 class TweetComposeViewController: UIViewController {
 
     @IBOutlet weak var newTweetTextView: UITextView!
+    var tweets: [Tweet] = [Tweet]()
+    var newTweetHandler: ([Tweet]) -> Void = { (tweet) in }
+    
+    func prepare(tweets: [Tweet]?, newTweetHandler: @escaping ([Tweet]) -> Void) {
+        
+        if let tweets = tweets {
+            self.tweets = tweets
+        }
+        
+        self.newTweetHandler = newTweetHandler
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -33,8 +45,12 @@ class TweetComposeViewController: UIViewController {
         let text = newTweetTextView.text
         
         if !(text ?? "").isEmpty {
-            TwitterClient.sharedInstance!.postTweet(text: text, success: {
+            TwitterClient.sharedInstance!.postTweet(text: text, success: { (newTweet: Tweet!) in
                 print("Successfully Posted a Tweet")
+                
+                self.tweets.insert(newTweet, at: 0)
+                self.newTweetHandler(self.tweets)
+                
             }, failure: { (error: Error!) in
                 print("Error: \(error.localizedDescription)")
             })

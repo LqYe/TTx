@@ -99,9 +99,9 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func getHomeTimeline(success: (([Tweet]?) -> Void)!, failure: ((Error?) -> Void)!) {
-        
-        get("/1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+    func getHomeTimeline(parameters: [String: String]?, success: (([Tweet]?) -> Void)!, failure: ((Error?) -> Void)!) {
+
+        get("/1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
             
             guard let response = response as? [NSDictionary] else {return}
             
@@ -122,10 +122,37 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
-    func postTweet(text: String!, success: (() -> Void)!, failure: ((Error?) -> Void)!) {
+    func postTweet(text: String!, success: ((Tweet) -> Void)!, failure: ((Error?) -> Void)!) {
         
         let params = ["status": text]
         post("/1.1/statuses/update.json", parameters: params, progress: nil, success: {  (task: URLSessionDataTask,
+            response: Any?) -> Void in
+            
+            
+            guard let response = response as? NSDictionary else {return}
+            
+            do  {
+                let json = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+                print(json)
+                let newTweet = try JSONDecoder().decode(Tweet.self, from: json)
+                
+                success(newTweet)
+                
+            } catch let jsonError {
+                print("Error: \(jsonError.localizedDescription)")
+            }
+            
+        }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        })
+        
+    }
+    
+    func postLike(id: Int64!, action: String!, success: (() -> Void)!, failure: ((Error?) -> Void)!) {
+        
+        let favoriteUrl = "/1.1/favorites/" + action + ".json"
+        let params = ["id": id]
+        post(favoriteUrl, parameters: params, progress: nil, success: {  (task: URLSessionDataTask,
             response: Any?) -> Void in
             
             success()
@@ -134,8 +161,23 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         })
         
+        
     }
     
-    
+    func postRetweet(id: Int64!, success: (() -> Void)!, failure: ((Error?) -> Void)!) {
+        
+        let retweetUrl = "/1.1/statuses/retweet/\(id!).json"
+        
+        post(retweetUrl, parameters: nil, progress: nil, success: {  (task: URLSessionDataTask,
+            response: Any?) -> Void in
+            
+            success()
+            
+        }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        })
+        
+        
+    }
 
 }

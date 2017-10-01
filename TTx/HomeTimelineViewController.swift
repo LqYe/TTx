@@ -13,6 +13,12 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var tweetsTableView: UITableView!
     var tweets: [Tweet] = [Tweet]()
     
+    //views
+    var spinner: UIActivityIndicatorView!
+    
+    //infinite scrolling
+    var isMoreDataLoading = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,12 +26,14 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         tweetsTableView.estimatedRowHeight = 100
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
-        TwitterClient.sharedInstance!.getHomeTimeline(success: { (homeTimeline: [Tweet]!) in
+        let params = ["count": "\(Tweet.count)"]
+        TwitterClient.sharedInstance!.getHomeTimeline(parameters: params, success: { (homeTimeline: [Tweet]!) in
             
             print("***************Start Printing Hometimeline************")
             print(homeTimeline)
-            self.tweets = homeTimeline
             
+            self.tweets = homeTimeline
+            self.updateTweetIds()
             self.tweetsTableView.reloadData()
             
         }, failure: { (error: Error!) -> Void in
@@ -43,15 +51,30 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         
         //4. insert the refresh control into the list
         tweetsTableView.insertSubview(refreshControl, at: 0)
+        
+        
+        //add inifite scroll indicator
+        spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        spinner.frame = CGRect(x:0, y: 0, width: self.tweetsTableView.frame.width, height: 40)
+        self.tweetsTableView.tableFooterView = spinner
+    }
+    
+    fileprivate func updateTweetIds() {
+        if self.tweets.count > 0 {
+            Tweet.since_id = self.tweets[0].id!
+            Tweet.max_id = self.tweets[self.tweets.count - 1].id! - 1
+        }
     }
     
     @objc func refreshControlAction(_ refreshControl: UIRefreshControl){
         
-        TwitterClient.sharedInstance!.getHomeTimeline(success: { (homeTimeline: [Tweet]!) in
+        let params = ["count": "\(Tweet.count)"]
+        TwitterClient.sharedInstance!.getHomeTimeline(parameters: params, success: { (homeTimeline: [Tweet]!) in
             
             print("***************Pull to refresh Hometimeline************")
             self.tweets = homeTimeline
             refreshControl.endRefreshing()
+            self.updateTweetIds()
             self.tweetsTableView.reloadData()
 
         }, failure: { (error: Error!) -> Void in
@@ -100,6 +123,35 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        //when it reaches bottom of tableview
+        if(indexPath.section == self.tweets.count - 1 && tweetsTableView.isDragging) {
+
+            spinner.startAnimating()
+            
+            let params = ["count": "\(Tweet.count)", "max_id": "\(Tweet.max_id)"]
+            TwitterClient.sharedInstance!.getHomeTimeline(parameters: params, success: { (homeTimeline: [Tweet]!) in
+                
+                print("***************Pull to refresh Hometimeline************")
+                let lastIndex = self.tweets.count
+                
+                self.tweets.append(contentsOf: homeTimeline)
+                
+                self.spinner.stopAnimating()
+                
+                Tweet.max_id = self.tweets[self.tweets.count - 1].id! - 1
+                
+                self.doUpdateNewTweet(indexSet: IndexSet((lastIndex)...(self.tweets.count - 1)))
+                
+            }, failure: { (error: Error!) -> Void in
+                print("Error: \(error.localizedDescription)")
+                self.spinner.stopAnimating()
+            })
+        }
+        
+    }
+    
 
     
     // MARK: - Navigation
@@ -116,9 +168,29 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
             let tweetCell = tweetsTableView.cellForRow(at: indexPath) as! TweetCell
             dvc.tweet = tweetCell.tweet
             
+        } else if segue.identifier == "showComposeTweet" {
+            
+            //the new tweet compose view is embeded in a navigation controller, so need to navigate throug to get it
+            guard let composeNav = segue.destination as? UINavigationController,
+                let composeVC = composeNav.viewControllers.first as? TweetComposeViewController else {
+                    return
+            }
+            
+            composeVC.prepare(tweets: tweets, newTweetHandler: { (updatedTweets) in
+                
+                self.tweets = updatedTweets
+                self.doUpdateNewTweet(indexSet: [0])
+            })
+            
         }
         
     }
  
+    func doUpdateNewTweet(indexSet: IndexSet) {
+        
+        tweetsTableView.beginUpdates()
+        tweetsTableView.insertSections(indexSet, with: .automatic)
+        tweetsTableView.endUpdates()
     
+    }
 }

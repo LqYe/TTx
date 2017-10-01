@@ -10,18 +10,21 @@ import Foundation
 
 struct Tweet: Decodable {
     
+    let id: Int64?
     let text: String?
     let created_at: String?
-    let retweet_count: Int?
-    let retweeted: Bool?
-    let source: String?
-    //let reply_count: Int?
-    let favorite_count: Int?
+    var retweet_count: Int?
+    var retweeted: Bool?
+    var favorite_count: Int?
+    var favorited: Bool?
     
     
     //user object
     let user: User?
     
+    static var since_id: Int64 = 0;
+    static var max_id: Int64 = 0;
+    static var count: Int = 30;
     
     
 }
