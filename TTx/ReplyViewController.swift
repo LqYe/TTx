@@ -23,6 +23,7 @@ class ReplyViewController: UIViewController {
         // Do any additional setup after loading the view.
         usernameReplyingTo = "@\(tweet.user?.screen_name ?? "Unknown")"
         userNameLabel.text = usernameReplyingTo
+        navigationItem.title = "\(140 - usernameReplyingTo.count - 1)"
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +34,7 @@ class ReplyViewController: UIViewController {
 
     @IBAction func onReplyButtonClicked(_ sender: Any) {
         
-        let text = replyTextView.text
+        let text = usernameReplyingTo + " " + replyTextView.text
         
         TwitterClient.sharedInstance!.postTweet(text: text, replytoId: tweet.id, success: { (newTweet: Tweet!) in
             
@@ -70,7 +71,7 @@ extension ReplyViewController: UITextViewDelegate {
         //range is the index being edited. Editng: You can add a char or paste a sentence/paragraph.
         //suppose current textview has "what", if "?" is added to front, then this method will be triggered with range 0 and text "?". If "?" is added at the end, the range is 4.
         //text is the text being entered: can be more than one char i.e. pasted sentence or paragraph.
-        let maxChars: Int = 140
+        let maxChars: Int = 140 - usernameReplyingTo.count
         
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.characters.count // for Swift use count(newText)
