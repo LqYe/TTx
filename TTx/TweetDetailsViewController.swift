@@ -52,7 +52,7 @@ class TweetDetailsViewController: UIViewController {
             retweetButton.setImage(UIImage(named: "retweeted"), for: UIControlState.normal)
         }
         
-        let tweetDetailGroupViewYconstraint = NSLayoutConstraint(item: tweetDetailsView, attribute: .top, relatedBy: .equal, toItem: tweetDetailsView.superview, attribute: .top, multiplier: 1, constant: 8)
+        let tweetDetailGroupViewYconstraint = NSLayoutConstraint(item: tweetDetailsView, attribute: .top, relatedBy: .equal, toItem: retweetedLabel.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
 
         if retweeted_by != nil {
             retweetedLabel.isHidden = false

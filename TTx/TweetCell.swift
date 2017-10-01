@@ -22,6 +22,7 @@ class TweetCell: UITableViewCell {
     
     var tweetDetailGroupViewYconstraint: NSLayoutConstraint!
     
+    
     var tweet: Tweet! {
         didSet {
             
@@ -30,11 +31,12 @@ class TweetCell: UITableViewCell {
                 theTweet = retweeted_status
                 retweetedLabel.isHidden = false
                 retweetedLabel.text = "retweeted by \(tweet.user?.name ?? "Unknown")"
-                NSLayoutConstraint.deactivate([tweetDetailGroupViewYconstraint])
+                
+            NSLayoutConstraint.deactivate([tweetDetailGroupViewYconstraint])
 
             } else {
                 retweetedLabel.isHidden = true
-                NSLayoutConstraint.activate([tweetDetailGroupViewYconstraint])
+            NSLayoutConstraint.activate([tweetDetailGroupViewYconstraint])
             }
             
             let profileUrl = URL(string: (theTweet.user?.profile_image_url_https)!)!
