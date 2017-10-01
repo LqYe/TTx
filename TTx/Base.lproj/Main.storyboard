@@ -17,19 +17,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bd0-Xd-Cch">
-                                <rect key="frame" x="66" y="455" width="283" height="77"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Twitter Login">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bd0-Xd-Cch">
+                                <rect key="frame" x="139" y="348" width="137" height="40"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                                <state key="normal" title="Sign in...here">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="onLoginButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nyf-lp-pBW"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phonto" translatesAutoresizingMaskIntoConstraints="NO" id="Fba-hX-T3y">
+                                <rect key="frame" x="132" y="178" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="P9o-HP-7Mi"/>
+                                    <constraint firstAttribute="width" constant="150" id="jcl-66-k2o"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.94509803921568625" green="0.40000000000000002" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Bd0-Xd-Cch" firstAttribute="centerX" secondItem="Fba-hX-T3y" secondAttribute="centerX" id="1y6-uA-xlA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fba-hX-T3y" secondAttribute="trailing" constant="8" id="CSH-l8-A3D"/>
+                            <constraint firstItem="Bd0-Xd-Cch" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KVn-dC-qRY"/>
+                            <constraint firstItem="Bd0-Xd-Cch" firstAttribute="top" secondItem="Fba-hX-T3y" secondAttribute="bottom" constant="20" id="i52-ZT-I9R"/>
+                            <constraint firstItem="Bd0-Xd-Cch" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l1a-cH-8Ab"/>
+                            <constraint firstItem="Fba-hX-T3y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="xjh-qy-A5K"/>
+                            <constraint firstItem="Fba-hX-T3y" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="yyV-dZ-bjh"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
@@ -548,6 +563,7 @@
     </scenes>
     <resources>
         <image name="like" width="25" height="25"/>
+        <image name="phonto" width="640" height="640"/>
         <image name="reply" width="25" height="25"/>
         <image name="retweet" width="25" height="25"/>
     </resources>

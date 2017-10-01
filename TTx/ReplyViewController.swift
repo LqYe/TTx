@@ -24,6 +24,7 @@ class ReplyViewController: UIViewController {
         usernameReplyingTo = "@\(tweet.user?.screen_name ?? "Unknown")"
         userNameLabel.text = usernameReplyingTo
         navigationItem.title = "\(140 - usernameReplyingTo.count - 1)"
+        replyTextView.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
