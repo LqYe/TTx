@@ -467,33 +467,50 @@
         <!--140-->
         <scene sceneID="4mb-ns-52v">
             <objects>
-                <viewController id="QS6-Jl-4Sf" customClass="TweetComposeViewController" customModule="TTx" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QS6-Jl-4Sf" customClass="ReplyViewController" customModule="TTx" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SuJ-Dk-qpm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWs-I6-oO5">
-                                <rect key="frame" x="20" y="74" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replying to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWs-I6-oO5">
+                                <rect key="frame" x="10" y="74" width="76.666666666666671" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ujc-Dw-m1O">
-                                <rect key="frame" x="20" y="136" width="374" height="436"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40y-YD-i9A">
+                                <rect key="frame" x="91.666666666666657" y="72.666666666666671" width="78.999999999999972" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ujc-Dw-m1O">
+                                <rect key="frame" x="10" y="107" width="394" height="619"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="QS6-Jl-4Sf" id="W6d-jc-A66"/>
+                                </connections>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ujc-Dw-m1O" firstAttribute="leading" secondItem="3f9-8x-vwf" secondAttribute="leading" constant="10" id="3hR-tZ-mfL"/>
+                            <constraint firstItem="40y-YD-i9A" firstAttribute="leading" secondItem="SWs-I6-oO5" secondAttribute="trailing" constant="5" id="DON-d0-QBY"/>
+                            <constraint firstItem="3f9-8x-vwf" firstAttribute="trailing" secondItem="ujc-Dw-m1O" secondAttribute="trailing" constant="10" id="Ku4-Ee-ad4"/>
+                            <constraint firstItem="3f9-8x-vwf" firstAttribute="bottom" secondItem="ujc-Dw-m1O" secondAttribute="bottom" constant="10" id="Si1-cm-cC4"/>
+                            <constraint firstItem="SWs-I6-oO5" firstAttribute="top" secondItem="3f9-8x-vwf" secondAttribute="top" constant="10" id="YYH-FJ-l5X"/>
+                            <constraint firstItem="SWs-I6-oO5" firstAttribute="leading" secondItem="3f9-8x-vwf" secondAttribute="leading" constant="10" id="Yar-CM-hfk"/>
+                            <constraint firstItem="40y-YD-i9A" firstAttribute="centerY" secondItem="SWs-I6-oO5" secondAttribute="centerY" id="hb6-n8-B6i"/>
+                            <constraint firstItem="ujc-Dw-m1O" firstAttribute="top" secondItem="SWs-I6-oO5" secondAttribute="bottom" constant="15" id="twd-Uv-R0X"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3f9-8x-vwf"/>
                     </view>
                     <navigationItem key="navigationItem" title="140" id="nlr-9d-z6I">
                         <barButtonItem key="leftBarButtonItem" title="Reply" id="4Pn-CI-2ZD">
                             <connections>
-                                <action selector="onTweetButtonClicked:" destination="QS6-Jl-4Sf" id="Ran-ye-qtR"/>
+                                <action selector="onReplyButtonClicked:" destination="QS6-Jl-4Sf" id="Ran-ye-qtR"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="ehy-Sf-jR4">
@@ -502,6 +519,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="replyTextView" destination="ujc-Dw-m1O" id="p5g-3Q-VNi"/>
+                        <outlet property="userNameLabel" destination="40y-YD-i9A" id="imp-3L-PlM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cwO-8N-CoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -21,6 +21,7 @@
 		98DCA5801F7F2A4C0076FE44 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCA57F1F7F2A4C0076FE44 /* HomeTimelineViewController.swift */; };
 		98DCA5821F7F2C090076FE44 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCA5811F7F2C090076FE44 /* TweetCell.swift */; };
 		98DEEAE51F7CE30100873878 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DEEAE41F7CE30100873878 /* User.swift */; };
+		98EEA2B81F80E9BA004BCF8A /* ReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EEA2B71F80E9BA004BCF8A /* ReplyViewController.swift */; };
 		98F960C91F7B981900CA86E8 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F960C81F7B981900CA86E8 /* AppConstants.swift */; };
 		A51960F23D356EC0AA48BC4E /* Pods_TTx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A831A0E22330FFB39D4A88B1 /* Pods_TTx.framework */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		98DCA57F1F7F2A4C0076FE44 /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewController.swift; sourceTree = "<group>"; };
 		98DCA5811F7F2C090076FE44 /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		98DEEAE41F7CE30100873878 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		98EEA2B71F80E9BA004BCF8A /* ReplyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyViewController.swift; sourceTree = "<group>"; };
 		98F960C81F7B981900CA86E8 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		A831A0E22330FFB39D4A88B1 /* Pods_TTx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D13F815538D7456E59BB5813 /* Pods-TTx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTx.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTx/Pods-TTx.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				98DCA57F1F7F2A4C0076FE44 /* HomeTimelineViewController.swift */,
 				98D769FD1F7FAC950099880E /* TweetDetailsViewController.swift */,
 				98B626C21F803DB600D0D988 /* TweetComposeViewController.swift */,
+				98EEA2B71F80E9BA004BCF8A /* ReplyViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				985C72921F7B786400E3759E /* LoginViewController.swift in Sources */,
 				985C72901F7B786400E3759E /* AppDelegate.swift in Sources */,
 				985C72981F7B786400E3759E /* TTx.xcdatamodeld in Sources */,
+				98EEA2B81F80E9BA004BCF8A /* ReplyViewController.swift in Sources */,
 				98D769FE1F7FAC950099880E /* TweetDetailsViewController.swift in Sources */,
 				98DCA5821F7F2C090076FE44 /* TweetCell.swift in Sources */,
 				984800061F7E390F00C0A0A3 /* Tweet.swift in Sources */,

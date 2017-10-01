@@ -1,38 +1,28 @@
 //
-//  TweetComposeViewController.swift
+//  ReplyViewController.swift
 //  TTx
 //
-//  Created by Liqiang Ye on 9/30/17.
+//  Created by Liqiang Ye on 10/1/17.
 //  Copyright © 2017 Liqiang Ye. All rights reserved.
 //
 
 import UIKit
-import UITextView_Placeholder
 
-class TweetComposeViewController: UIViewController {
+class ReplyViewController: UIViewController {
 
-    @IBOutlet weak var newTweetTextView: UITextView!
-    var tweets: [Tweet] = [Tweet]()
-    var newTweetHandler: ([Tweet]) -> Void = { (tweet) in }
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var replyTextView: UITextView!
     
-    func prepare(tweets: [Tweet]?, newTweetHandler: @escaping ([Tweet]) -> Void) {
-        
-        if let tweets = tweets {
-            self.tweets = tweets
-        }
-        
-        self.newTweetHandler = newTweetHandler
-    }
+    var tweet: Tweet!
+    
+    var usernameReplyingTo: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
-        
-        //3rd pod to display a place holder in text view
-        newTweetTextView.attributedPlaceholder = NSAttributedString(string: "What's happening?", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
-        
-        //hide the tweet button as no user input yet
-        navigationItem.leftBarButtonItem?.isEnabled = false
+        usernameReplyingTo = "@\(tweet.user?.screen_name ?? "Unknown")"
+        userNameLabel.text = usernameReplyingTo
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,31 +30,26 @@ class TweetComposeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onTweetButtonClicked(_ sender: Any) {
+
+    @IBAction func onReplyButtonClicked(_ sender: Any) {
         
-        let text = newTweetTextView.text
+        let text = replyTextView.text
         
-        if !(text ?? "").isEmpty {
-            TwitterClient.sharedInstance!.postTweet(text: text, replytoId: nil, success: { (newTweet: Tweet!) in
-                print("Successfully Posted a Tweet")
-                
-                self.tweets.insert(newTweet, at: 0)
-                self.newTweetHandler(self.tweets)
-                
-            }, failure: { (error: Error!) in
-                print("Error: \(error.localizedDescription)")
-            })
+        TwitterClient.sharedInstance!.postTweet(text: text, replytoId: tweet.id, success: { (newTweet: Tweet!) in
             
-        }
+            print("Successfully Replied a Tweet")
+            
+        }, failure: { (error: Error!) in
+            print("Error: \(error.localizedDescription)")
+        })
         
         dismiss(animated: true, completion: nil)
-
+        
     }
     
     @IBAction func onCancelNavButtonClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
     
     /*
     // MARK: - Navigation
@@ -78,8 +63,8 @@ class TweetComposeViewController: UIViewController {
 
 }
 
-extension TweetComposeViewController: UITextViewDelegate {
-    
+
+extension ReplyViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         //range is the index being edited. Editng: You can add a char or paste a sentence/paragraph.
@@ -92,7 +77,7 @@ extension TweetComposeViewController: UITextViewDelegate {
         
         if numberOfChars <= maxChars {
             navigationItem.title = "\(maxChars - numberOfChars)"
-        
+            
             if(numberOfChars == 0) {
                 navigationItem.leftBarButtonItem?.isEnabled = false
             } else {
