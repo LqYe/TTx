@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Tweet: Decodable {
+class Tweet: Decodable {
     
     let id: Int64?
     let text: String?
@@ -17,6 +17,7 @@ struct Tweet: Decodable {
     var retweeted: Bool?
     var favorite_count: Int?
     var favorited: Bool?
+    let retweeted_status: Tweet?
     
     
     //user object
@@ -28,3 +29,21 @@ struct Tweet: Decodable {
     
     
 }
+
+
+//struct RetweetStatus: Decodable {
+//    
+//    let id: Int64?
+//    let text: String?
+//    let created_at: String?
+//    var retweet_count: Int?
+//    var retweeted: Bool?
+//    var favorite_count: Int?
+//    var favorited: Bool?
+//
+//
+//    //user object
+//    let user: User?
+//
+//}
+

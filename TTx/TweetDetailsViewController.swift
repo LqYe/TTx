@@ -111,11 +111,21 @@ class TweetDetailsViewController: UIViewController {
         let id = tweet.id ?? 0
         
         if tweet.retweeted  == nil || !tweet.retweeted! {
-            TwitterClient.sharedInstance!.postRetweet(id: id, success: {
+            TwitterClient.sharedInstance!.postRetweet(id: id, action: "retweet", success: {
                 print("Successfully Retweeted a Tweet \(id)")
                 self.tweet.retweeted = true
                 self.retweetButton.setImage(UIImage(named: "retweeted"), for: UIControlState.normal)
                 self.tweet.retweet_count = (self.tweet.retweet_count ?? 0) + 1
+                self.retweetCountLabel.text = "\(self.tweet.retweet_count!)"
+            }, failure: { (error: Error!) in
+                print("Error: \(error.localizedDescription)")
+            })
+        } else {
+            TwitterClient.sharedInstance!.postRetweet(id: id, action: "unretweet", success: {
+                print("Successfully Unretweeted a Tweet \(id)")
+                self.tweet.retweeted = false
+                self.retweetButton.setImage(UIImage(named: "retweet"), for: UIControlState.normal)
+                self.tweet.retweet_count = (self.tweet.retweet_count ?? 1) - 1
                 self.retweetCountLabel.text = "\(self.tweet.retweet_count!)"
             }, failure: { (error: Error!) in
                 print("Error: \(error.localizedDescription)")

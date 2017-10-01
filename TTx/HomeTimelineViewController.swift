@@ -113,6 +113,10 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         
         cell.tweet = tweets[indexPath.section]
         
+        if cell.tweet.retweeted_status != nil {
+            print(cell.tweet.retweeted_status?.id)
+        }
+        
         return cell
     }
     
@@ -166,7 +170,13 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
             let dvc = segue.destination as! TweetDetailsViewController
             let indexPath = tweetsTableView.indexPath(for: sender as! UITableViewCell)!
             let tweetCell = tweetsTableView.cellForRow(at: indexPath) as! TweetCell
-            dvc.tweet = tweetCell.tweet
+            
+            if let retweeted_status = tweetCell.tweet.retweeted_status {
+                dvc.tweet = retweeted_status
+            } else {
+                dvc.tweet = tweetCell.tweet
+            }
+            
             
         } else if segue.identifier == "showComposeTweet" {
             

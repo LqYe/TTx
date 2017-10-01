@@ -18,22 +18,29 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     
     @IBOutlet weak var tweetDetailGroupViewYconstraint: NSLayoutConstraint!
+    
     var tweet: Tweet! {
         didSet {
             
-            let profileUrl = URL(string: (tweet.user?.profile_image_url_https)!)!
-            let formattedCreatedDate = Utils.convertTweetDateToTimeAgo(tweetDate: tweet.created_at ?? "Unknown")
-            
-            profileImageView.setImageWith(profileUrl)
-            nameLabel.text = tweet.user?.name
-            screenNameLabel.text = "@" + (tweet.user?.screen_name ?? "")
-            timestampLabel.text = formattedCreatedDate
-            tweetTextLabel.text = tweet.text
-            
-            if !tweet.retweeted! {
+            var theTweet: Tweet! = tweet
+            if let retweeted_status = tweet.retweeted_status {
+                theTweet = retweeted_status
+                retweetedLabel.isHidden = false
+                tweetDetailGroupViewYconstraint.constant = 30
+                retweetedLabel.text = "retweeted by \(tweet.user?.screen_name ?? "Unknown")"
+            } else {
                 retweetedLabel.isHidden = true
                 tweetDetailGroupViewYconstraint.constant = 8
             }
+            
+            let profileUrl = URL(string: (theTweet.user?.profile_image_url_https)!)!
+            let formattedCreatedDate = Utils.convertTweetDateToTimeAgo(tweetDate: theTweet.created_at ?? "Unknown")
+            
+            profileImageView.setImageWith(profileUrl)
+            nameLabel.text = theTweet.user?.name
+            screenNameLabel.text = "@" + (theTweet.user?.screen_name ?? "")
+            timestampLabel.text = formattedCreatedDate
+            tweetTextLabel.text = theTweet.text
 
         }
     }

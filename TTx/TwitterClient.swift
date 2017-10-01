@@ -169,9 +169,9 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
-    func postRetweet(id: Int64!, success: (() -> Void)!, failure: ((Error?) -> Void)!) {
+    func postRetweet(id: Int64!, action: String!, success: (() -> Void)!, failure: ((Error?) -> Void)!) {
         
-        let retweetUrl = "/1.1/statuses/retweet/\(id!).json"
+        let retweetUrl = "/1.1/statuses/\(action!)/\(id!).json"
         
         post(retweetUrl, parameters: nil, progress: nil, success: {  (task: URLSessionDataTask,
             response: Any?) -> Void in
