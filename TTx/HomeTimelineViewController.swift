@@ -23,7 +23,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        tweetsTableView.estimatedRowHeight = 100
+        tweetsTableView.estimatedRowHeight = 200
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
         let params = ["count": "\(Tweet.count)"]
@@ -113,10 +113,6 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         
         cell.tweet = tweets[indexPath.section]
         
-        if cell.tweet.retweeted_status != nil {
-            print(cell.tweet.retweeted_status?.id)
-        }
-        
         return cell
     }
     
@@ -137,7 +133,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
             let params = ["count": "\(Tweet.count)", "max_id": "\(Tweet.max_id)"]
             TwitterClient.sharedInstance!.getHomeTimeline(parameters: params, success: { (homeTimeline: [Tweet]!) in
                 
-                print("***************Pull to refresh Hometimeline************")
+                print("***************Infinite Scroll to refresh Hometimeline************")
                 let lastIndex = self.tweets.count
                 
                 self.tweets.append(contentsOf: homeTimeline)
@@ -173,6 +169,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
             
             if let retweeted_status = tweetCell.tweet.retweeted_status {
                 dvc.tweet = retweeted_status
+                dvc.retweeted_by = tweetCell.tweet.user?.name
             } else {
                 dvc.tweet = tweetCell.tweet
             }

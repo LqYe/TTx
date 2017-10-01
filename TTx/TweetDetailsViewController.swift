@@ -22,23 +22,10 @@ class TweetDetailsViewController: UIViewController {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var replyButton: UIButton!
     
-    
-    
-    
+    @IBOutlet weak var tweetDetailsView: UIView!
     
     var tweet: Tweet!
-    
-    var tweetUpdateHandler: (Tweet) -> Void = { (tweet) in }
-    
-    //setter
-    func prepare(tweet: Tweet?, tweetUpdateHandler: @escaping (Tweet) -> Void) {
-        
-        if let tweet = tweet {
-            self.tweet = tweet
-        }
-        
-        self.tweetUpdateHandler = tweetUpdateHandler
-    }
+    var retweeted_by: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +50,18 @@ class TweetDetailsViewController: UIViewController {
 
         if tweet.retweeted != nil && tweet.retweeted! {
             retweetButton.setImage(UIImage(named: "retweeted"), for: UIControlState.normal)
+        }
+        
+        let tweetDetailGroupViewYconstraint = NSLayoutConstraint(item: tweetDetailsView, attribute: .top, relatedBy: .equal, toItem: tweetDetailsView.superview, attribute: .top, multiplier: 1, constant: 8)
+
+        if retweeted_by != nil {
+            retweetedLabel.isHidden = false
+            retweetedLabel.text = "retweeted by \(retweeted_by!)"
+            NSLayoutConstraint.deactivate([tweetDetailGroupViewYconstraint])
+            
+        } else {
+            retweetedLabel.isHidden = true
+            NSLayoutConstraint.activate([tweetDetailGroupViewYconstraint])
         }
         
 //        if !tweet.retweeted! {

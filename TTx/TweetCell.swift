@@ -17,7 +17,10 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     
-    @IBOutlet weak var tweetDetailGroupViewYconstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var tweetDetailsView: UIView!
+    
+    var tweetDetailGroupViewYconstraint: NSLayoutConstraint!
     
     var tweet: Tweet! {
         didSet {
@@ -26,11 +29,12 @@ class TweetCell: UITableViewCell {
             if let retweeted_status = tweet.retweeted_status {
                 theTweet = retweeted_status
                 retweetedLabel.isHidden = false
-                tweetDetailGroupViewYconstraint.constant = 30
-                retweetedLabel.text = "retweeted by \(tweet.user?.screen_name ?? "Unknown")"
+                retweetedLabel.text = "retweeted by \(tweet.user?.name ?? "Unknown")"
+                NSLayoutConstraint.deactivate([tweetDetailGroupViewYconstraint])
+
             } else {
                 retweetedLabel.isHidden = true
-                tweetDetailGroupViewYconstraint.constant = 8
+                NSLayoutConstraint.activate([tweetDetailGroupViewYconstraint])
             }
             
             let profileUrl = URL(string: (theTweet.user?.profile_image_url_https)!)!
@@ -53,6 +57,8 @@ class TweetCell: UITableViewCell {
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2;
         profileImageView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
         profileImageView.layer.borderWidth = 1;
+        
+        tweetDetailGroupViewYconstraint = NSLayoutConstraint(item: tweetDetailsView, attribute: .top, relatedBy: .equal, toItem: tweetDetailsView.superview, attribute: .top, multiplier: 1, constant: 8)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
