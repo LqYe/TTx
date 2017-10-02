@@ -15,10 +15,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
     
     //views
     var spinner: UIActivityIndicatorView!
-    
-    //infinite scrolling
-    var isMoreDataLoading = false
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,19 +23,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         tweetsTableView.estimatedRowHeight = 200
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
-        let params = ["count": "\(Tweet.count)"]
-        TwitterClient.sharedInstance!.getHomeTimeline(parameters: params, success: { (homeTimeline: [Tweet]!) in
-            
-            print("***************Start Printing Hometimeline************")
-            print(homeTimeline)
-            
-            self.tweets = homeTimeline
-            self.updateTweetIds()
-            self.tweetsTableView.reloadData()
-            
-        }, failure: { (error: Error!) -> Void in
-            print("Error: \(error.localizedDescription)")
-        })
+        fetchData()
         
         //add pull to refresh
         //1. initialize a UI refresh control
@@ -57,6 +42,22 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         spinner.frame = CGRect(x:0, y: 0, width: self.tweetsTableView.frame.width, height: 40)
         self.tweetsTableView.tableFooterView = spinner
+    }
+    
+    func fetchData() {
+        let params = ["count": "\(Tweet.count)"]
+        TwitterClient.sharedInstance!.getHomeTimeline(parameters: params, success: { (homeTimeline: [Tweet]!) in
+            
+            print("***************Start Printing Hometimeline************")
+            print(homeTimeline)
+            
+            self.tweets = homeTimeline
+            self.updateTweetIds()
+            self.tweetsTableView.reloadData()
+            
+        }, failure: { (error: Error!) -> Void in
+            print("Error: \(error.localizedDescription)")
+        })
     }
     
     fileprivate func updateTweetIds() {
@@ -88,6 +89,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     @IBAction func onLogoutButtonClicked(_ sender: Any) {
         
@@ -174,6 +176,9 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
                 dvc.tweet = tweetCell.tweet
             }
             
+            dvc.updateTweetHandler = { () in
+                self.tweetsTableView.reloadData()
+            }
             
         } else if segue.identifier == "showComposeTweet" {
             
@@ -200,4 +205,5 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         tweetsTableView.endUpdates()
     
     }
+    
 }

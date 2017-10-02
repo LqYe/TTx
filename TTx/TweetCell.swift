@@ -17,9 +17,13 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     
+    @IBOutlet weak var likeCountLabel: UILabel!
     
     @IBOutlet weak var tweetDetailsView: UIView!
+    @IBOutlet weak var retweetCountLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
     
+    @IBOutlet weak var retweetButton: UIButton!
     var tweetDetailGroupViewYconstraint: NSLayoutConstraint!
     
     
@@ -47,7 +51,20 @@ class TweetCell: UITableViewCell {
             screenNameLabel.text = "@" + (theTweet.user?.screen_name ?? "")
             timestampLabel.text = formattedCreatedDate
             tweetTextLabel.text = theTweet.text
-
+            likeCountLabel.text = "\(theTweet.favorite_count ?? 0)"
+            retweetCountLabel.text = "\(theTweet.retweet_count ?? 0)"
+            
+            if theTweet.favorited != nil && theTweet.favorited! {
+                likeButton.setImage(UIImage(named: "liked"), for: UIControlState.normal)
+            } else {
+                likeButton.setImage(UIImage(named: "like"), for: UIControlState.normal)
+            }
+            
+            if theTweet.retweeted != nil && theTweet.retweeted! {
+                retweetButton.setImage(UIImage(named: "retweeted"), for: UIControlState.normal)
+            } else {
+                retweetButton.setImage(UIImage(named: "retweet"), for: UIControlState.normal)
+            }
         }
     }
     
