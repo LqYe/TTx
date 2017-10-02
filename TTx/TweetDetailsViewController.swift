@@ -29,6 +29,7 @@ class TweetDetailsViewController: UIViewController {
     
     var tweet: Tweet!
     var retweeted_by: String?
+    var updateTweetHandler: () -> Void = { () in }
     
     @IBOutlet var doubleTapToLike: UITapGestureRecognizer!
     
@@ -104,6 +105,9 @@ class TweetDetailsViewController: UIViewController {
             }, failure: { (error: Error!) in
                 print("Error: \(error.localizedDescription)")
             })
+            
+                self.updateTweetHandler()
+            
         } else {
             TwitterClient.sharedInstance!.postLike(id: id, action: "destroy", success: {
                 print("Successfully Unliked a Tweet \(id)")
@@ -111,10 +115,14 @@ class TweetDetailsViewController: UIViewController {
                 self.likeButton.setImage(UIImage(named: "like"), for: UIControlState.normal)
                 self.tweet.favorite_count = (self.tweet.favorite_count ?? 1) - 1
                 self.likeCountLabel.text = "\(self.tweet.favorite_count!)"
+                
+                self.updateTweetHandler()
+                
             }, failure: { (error: Error!) in
                 print("Error: \(error.localizedDescription)")
             })
         }
+        
     }
     
     @IBAction func onLikeButtonClicked(_ sender: Any) {
@@ -133,6 +141,9 @@ class TweetDetailsViewController: UIViewController {
                 self.retweetButton.setImage(UIImage(named: "retweeted"), for: UIControlState.normal)
                 self.tweet.retweet_count = (self.tweet.retweet_count ?? 0) + 1
                 self.retweetCountLabel.text = "\(self.tweet.retweet_count!)"
+                
+                self.updateTweetHandler()
+                
             }, failure: { (error: Error!) in
                 print("Error: \(error.localizedDescription)")
             })
@@ -143,6 +154,9 @@ class TweetDetailsViewController: UIViewController {
                 self.retweetButton.setImage(UIImage(named: "retweet"), for: UIControlState.normal)
                 self.tweet.retweet_count = (self.tweet.retweet_count ?? 1) - 1
                 self.retweetCountLabel.text = "\(self.tweet.retweet_count!)"
+                
+                self.updateTweetHandler()
+                
             }, failure: { (error: Error!) in
                 print("Error: \(error.localizedDescription)")
             })
