@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIView_Borders
 
 class TweetDetailsViewController: UIViewController {
 
@@ -23,9 +24,13 @@ class TweetDetailsViewController: UIViewController {
     @IBOutlet weak var replyButton: UIButton!
     
     @IBOutlet weak var tweetDetailsView: UIView!
+    @IBOutlet weak var statsView: UIView!
+    @IBOutlet weak var actionItemView: UIView!
     
     var tweet: Tweet!
     var retweeted_by: String?
+    
+    @IBOutlet var doubleTapToLike: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +69,17 @@ class TweetDetailsViewController: UIViewController {
             NSLayoutConstraint.activate([tweetDetailGroupViewYconstraint])
         }
         
-//        if !tweet.retweeted! {
-//            retweetedLabel.isHidden = true
-//        }
+        statsView.addTopBorder(withHeight: 2.0, andColor: UIColor.lightGray)
+        statsView.addBottomBorder(withHeight: 2.0, andColor: UIColor.lightGray)
+
+        
+        //set up double tap to like
+        doubleTapToLike.numberOfTapsRequired = 2;
+        doubleTapToLike.addTarget(self, action: #selector(doubleTapped))
+    }
+    
+    @objc func doubleTapped() {
+        handleLikeAction()
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,9 +91,9 @@ class TweetDetailsViewController: UIViewController {
         
     }
     
-    @IBAction func onLikeButtonClicked(_ sender: Any) {
+    fileprivate func handleLikeAction() {
         let id = tweet.id ?? 0
-
+        
         if tweet.favorited == nil || !tweet.favorited! {
             TwitterClient.sharedInstance!.postLike(id: id, action: "create", success: {
                 print("Successfully Liked a Tweet \(id)")
@@ -102,6 +115,10 @@ class TweetDetailsViewController: UIViewController {
                 print("Error: \(error.localizedDescription)")
             })
         }
+    }
+    
+    @IBAction func onLikeButtonClicked(_ sender: Any) {
+        handleLikeAction()
     }
     
     

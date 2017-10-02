@@ -103,7 +103,7 @@
             </objects>
             <point key="canvasLocation" x="3731.884057971015" y="-804.61956521739137"/>
         </scene>
-        <!--Home Timeline View Controller-->
+        <!--TTx-->
         <scene sceneID="o1i-RI-Wrx">
             <objects>
                 <viewController storyboardIdentifier="homeTimelineViewController" id="lAh-4l-N1a" customClass="HomeTimelineViewController" customModule="TTx" customModuleProvider="target" sceneMemberID="viewController">
@@ -221,7 +221,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yAe-l4-UAa"/>
                     </view>
-                    <navigationItem key="navigationItem" id="qir-xB-aHL">
+                    <navigationItem key="navigationItem" title="TTx" id="qir-xB-aHL">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="xn8-M4-xcJ">
                             <connections>
                                 <action selector="onLogoutButtonClicked:" destination="lAh-4l-N1a" id="Wuy-mW-kOM"/>
@@ -251,6 +251,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.94509803920000002" green="0.40000000000000002" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -311,6 +314,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mE8-JZ-D3T" secondAttribute="trailing" constant="5" id="3Ag-ad-TCb"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="abz-yJ-bZi" secondAttribute="trailing" constant="5" id="5IS-gA-u3K"/>
@@ -330,6 +334,9 @@
                                     <constraint firstItem="eFg-DI-PDF" firstAttribute="top" secondItem="abz-yJ-bZi" secondAttribute="bottom" constant="5" id="ju7-1V-K0p"/>
                                     <constraint firstItem="mE8-JZ-D3T" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eFg-DI-PDF" secondAttribute="bottom" constant="5" id="wwX-9M-0tW"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="yab-S5-D0r" appends="YES" id="n9A-eP-oSj"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9g-L2-oBQ" userLabel="Retweets and Likes">
                                 <rect key="frame" x="10" y="226.66666666666663" width="394" height="29.333333333333343"/>
@@ -444,6 +451,8 @@
                         <viewLayoutGuide key="safeArea" id="4if-yk-WMx"/>
                     </view>
                     <connections>
+                        <outlet property="actionItemView" destination="IbV-aY-fiI" id="fef-Qk-uu4"/>
+                        <outlet property="doubleTapToLike" destination="yab-S5-D0r" id="i5f-lZ-WbD"/>
                         <outlet property="likeButton" destination="xdq-VT-UhH" id="eQa-14-EmM"/>
                         <outlet property="likeCountLabel" destination="Wbg-F4-JCS" id="9Iq-u2-3WC"/>
                         <outlet property="nameLabel" destination="abz-yJ-bZi" id="e4U-Vq-ewN"/>
@@ -453,12 +462,14 @@
                         <outlet property="retweetCountLabel" destination="mBR-yF-1lH" id="N8r-et-oe8"/>
                         <outlet property="retweetedLabel" destination="qul-yK-xPg" id="6jn-zi-qoP"/>
                         <outlet property="screenNameLabel" destination="eFg-DI-PDF" id="gDt-Pf-gbg"/>
+                        <outlet property="statsView" destination="W9g-L2-oBQ" id="viD-Zg-pty"/>
                         <outlet property="timestampLabel" destination="Jfg-vW-XtZ" id="KZ5-UY-ANt"/>
                         <outlet property="tweetDetailsView" destination="Tia-cT-i2h" id="kNL-wT-g82"/>
                         <outlet property="tweetTextLabel" destination="mE8-JZ-D3T" id="Lpc-Pl-JCH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfk-iE-lQ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yab-S5-D0r"/>
             </objects>
             <point key="canvasLocation" x="3031.884057971015" y="52.989130434782609"/>
         </scene>

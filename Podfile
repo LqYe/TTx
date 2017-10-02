@@ -10,4 +10,5 @@ target 'TTx' do
   pod 'BDBOAuth1Manager'
   pod 'NSDateMinimalTimeAgo'
   pod 'UITextView+Placeholder'
+  pod 'UIView+Borders'
 end
